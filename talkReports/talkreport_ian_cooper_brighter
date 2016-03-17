@@ -1,0 +1,43 @@
+Ian Cooper - A brighter Future
+Dispatchers, Processors, and Task Queues
+
+Hello world:
+Get nuget Paramore.Brighter
+
+Some nice points:
+- forces usage of factory pattern
+- create a command processor by fluent interface
+- create saparete command object and handler
+- subscribe command to handler
+
+
+paramore.brighter.commandprocessor
+paramore.brighter.serviceactivatore
+
+most other are implementations of abstract interfaces from base libraries
+
+Command Invoker Pattern: 
+made for separating domain code from endpoint code
+you wrap up external request into a command, and the run a command against your business domain code
+then you can reuse command processing code
+
+Options:
+- run command directly
+- dispatch to a background process
+
+
+still a base point: separate invoker from receiver
+a command is a transactional boundary (compare DDD)
+
+command dispatcher is a variation of that pattern, that handlers the actual separation 
+
+
+IRequest and Event - built in types that look like first class citizens in brighter
+
+I wonder if we can view the demos somewhere
+
+impressions:
+- a lot of specifics that could provide very fine grained options
+- possibly a lot of complexity setting up
+- tying to a very specific mindset?
+- may be very good as a working internal framework, may be risky to use without internal knowledge for non-maintainers

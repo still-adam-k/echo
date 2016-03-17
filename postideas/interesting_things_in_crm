@@ -1,0 +1,27 @@
+As Dylan mentioned a couple of months ago in his build vs buy post (see here) we have heavily invested in Microsoft Dynamics CRM system. Did it work out? Too early to say. CRM is first and foremost business system, and the guys from the 4th floor seem satisfied enough so far. Unfortunately, there are technical qualities you take for granted, which are not always straightforward.
+
+Without further adieu, here are some of the things we did to improve crm experience from the developer point of view.
+
+### Preface - our CRM system
+- what we use crm for
+- crm quick overview (db, views, plugins, assemblies)
+- entities model, solutions
+
+### Fit in the CI pipeline
+
+One of the first things we wanted to change was the way we deploy our changes. Out of the box approach does not support much: you are encouraged either to work on default solution
+- how crm deploy should work
+- problem - automated build and deploy
+- developers vs release version
+- solution versioning
+- syncronizing branch changes
+- handling removals
+- outstanding problems: dependency resolution
+
+
+
+- Integration tests, strong types and testing abstractions
+- Automated build and deployment system
+- intergratin with message queue, correlating incoming and outgoing messages
+- transactional consistency
+- monitoring 

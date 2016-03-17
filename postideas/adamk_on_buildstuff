@@ -1,0 +1,25 @@
+Build stuff report 
+
+Last few days were spent attending Build Stuff conference in Vilnius.
+
+Here are some things I have learned of:
+
+##### People in the software development industry are changing - constatnly and at very high pace
+developers went from mathematicias, engineers (early days) into masses (relatively). Now it may be changing and we may be learning and rediscovering a lot of things along the way.
+
+##### Fuctional programming starts to become more popular and developers incorporate functional elements (pipe and filters approach) into their development practices
+Functional, list-like processing requires more knowledge and more practice, but provides more tense and recognizable syntax
+
+##### asp.net 5 is in release candidate, promises revolution, and can be put on docker
+
+##### Instead of writing and describing pattern - try to formalize it in code. Courtesy of category theory. may not be expressable in all languages
+
+##### You can use IL weaving in c# and possibly reflection to achieve effectively stack trace logging (along with parameters? it could be quite cool)
+
+##### Unikernels - can be used to compile your application into unix kernel, achieving customized server per app.
+
+##### API design - apparently, we still tend to do that bit wrong all too often. Most common mistakes are - Chauvinist Server, Demanding Client, Transparent Server (my vote is on this one), Presumptous Client, Assuming Server. Also, hypermedia might not be working entirely well.
+
+##### Some problems could be solved in surprising and unconventional way. Look at provining board game solveness by transforming it to logica statement and using SAT solver, or using matrix shift and sum to count neighbours in Conway's Game Of Life. 
+
+##### Languages are build around some major feature. ie. APL - operations can be done regardless of variable dimennsion. LISP - everything is a list.  

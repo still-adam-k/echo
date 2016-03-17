@@ -1,0 +1,15 @@
+Adventures in land of tyrant software
+
+There are areas of software development that are new, shiny, cuting edge, reacting to latest trends. 
+There is also a second group, software that is long running, stable, enterpris-y, and chosen for reasons other than technical suitability.
+The land where all the crm, salesforce and sharepoint software lies. The tyrant type of software, which dictates one and only right way to develop and reacts very badly to new approaches
+
+This talk will tell what happens when a group of unsuspecting developers is tasked with working on major crm system. 
+
+It will be a lot about technical challenges - how we got around the limitations, how we solved the source control, automated tests,  deployment pipeline and monitorings. But more importantly, how did we found the right way of working as a team and what have we learned from numerous mistakes.
+
+What happens when first type of developer tries to work on the second type of software? 
+This was our story, when we were tasked to incorporate one of the major CRM software 
+How do we go around source control, code branching strategies? Automated tests? Continous integration, deployment pipelines, integrated monitoring?
+
+

@@ -1,0 +1,87 @@
+As Dylan mentioned a couple of months ago in his build vs buy post (see here) we have heavily invested in Microsoft Dynamics CRM system. Did it work out? Too early to say. CRM is first and foremost business system, and the guys from the 4th floor seem satisfied enough so far. Unfortunately,
+there are technical qualities you take for granted, which are not always straightforward.
+
+### Preface - our CRM system
+CRM - Customer Relationship Manager - is a tool to record and automate lots of things around your sales process. It is highly and easily customizable, and targeted primarily for business administrators rather than developers. As such, most of the things requires clicking through menus and wizards, and you are naturally limited in what can you do, but you cannot do anything overly stupid or destructive by accident.
+
+From technical perspective, CRM is a SQL Server database, a view engine and a couple of satelite services providing ie. scheduling, event subscriptions and such. Each "thing" inside crm is an entity - a database table with column as fields, and all the relations are represented on DB level. Main way of interactions are events - creates, updates, deletes - on particular entity or column that trigger execution of code plugins. More complex changes can be encapsulated in Processes (also know as workflows) that can be run on schedule or by the user.
+
+The combination of those things - business-first approach and constraints of underlying db and code execution - means achieving some of the qualities needed in modern IT system is more demading than it should be.
+
+
+- what we use crm for
+- crm quick overview (db, views, plugins, assemblies)
+- entities model, solutions
+
+### Fit in the CI pipeline
+
+One of the first things we wanted to change was the way we deploy our changes.
+The actual development on a crm system is a complex process. Among things you may change are:
+- your data schema (entities relations)
+- automated processes, stored as xml trees
+- data views and queries
+- javascript and html resources
+- code assemblies, plugins and workflows
+
+All of those things are stored and managed inside a "solution", which does it's best to organize and manage dependencies. The solution can also be distributed as managed or unmanaged - the former can be installed and removed as a whole, but cannot be extended, while installing unmanaged solution means you subsequently have to remove components one by one.
+Obviously unmanaged solutions are necessary for development, while managed go on production system.
+
+On a side note, crm is great at adding things into. Extending and installing new solutions is a breeze, but if you ever want to remove or - heaven forbid - edit one of things added earlier, prepare for a crazy ride. Typo in on of the entities names had cost me hours of fun down the road.
+
+To keep things more interesting, any changes in CRM schema like adding entities, fields, steps and any relations between them are identified by guids assigned on the time of creation. That means merging any schema changes from multiple sources is next to impossible, virtually locking you into making all crm schema changes on single crm instance. In our stack, this server is named Platypus, following our 8-letter name convention. Any resemblance to twisted creature that could be born only in mad scientist lab is purely accidental.
+
+Rest of our stack for crm development involves VM with local development instances - Kangaroo, Tamandua and Elephant, to keep in 8-letter animal convention. There is also VM instance that supports our shared development tier, and hosted directly by Microsoft, online instances for staging and live systems. Apart from that, all the usual api's, small applications, message queue endpoints, monitors and all the other satellite bits and pieces that make every IT stack.
+
+### How does development look like
+
+Our development is very code-heavy for typical crm system, so we can do most of the work on our local machines and not step on each other's toes.
+However before that we have to make necessary changes on Platypus, our single-point-of-crm-schema. Next step is to regenerate statically typed classes for our data model, and download updated solution schema to our local crm instance. Now you are ready to start actual development work 
+
+.. which does not contain many surprises. We use extensions for Visual Studio that let you connect to CRM directly and upload your code asseblies, so we don't have to click our way through various windows. Local builds also generate most of the necessary xml that are needed to register plugins and hook them into crm events. The real advantage of this approach is most of our work is easily mergable and can follow our standard github flow.
+
+### On the build server
+
+Unlike other projects, Team City does not run builds automatically. First of, it takes almost 20 minutes to complete a build, but more important, the build process requires lock on Platypus, so simultaneous builds usually end up in disaster. The build does:
+- Download the CRM SDK
+- work out and update the metadata of our solution
+- build all the code assemblies, this also automatically generates typed model package and takes care of IL merging all the dependencies
+- remove and re-register all the plugins (crm does act funny if you try to eg. remove a plugin by simple assembly update)
+- run all the integration tests
+- export the unmanaged and managed solutions
+- push the unmanaged one to git, due to earlier attempts to make diff of them, which does not really work
+- package and push the managed one as nuget for deployment
+
+Observant reader might notice we are running dubbing our schema crm instance to run tests. We probably should not be doing that, but we have ran out of 8 letter animal names.
+
+### The rest is a blur
+Compared to this, rest of the process is pretty straightforward. Our Octopus runs a few lines of powershell to upload the solution to online instance and that's it. At least if everything goes well, which, to be fair, does most of the time.
+
+It usually does not go well if you remove some of the previously existant fields (which is cumbersome, but straightforward in development, but requires lengthy patch procedures with managed solutions), mess up any guids in various xml files, or your changes are big enough for crm to keep you too waiting too long and timeout. But this might be another story.
+
+The usual development requires some coordination between team members, usually around making necessary changes to data schema on Platypus. We try to keep use of shared environment as short as possible, so 
+
+Out of the box approach does not support much: you are encouraged either to work on default solution
+- how crm deploy should work
+- problem - automated build and deploy
+- developers vs release version
+- solution versioning
+- syncronizing branch changes
+- handling removals
+- outstanding problems: dependency resolution
+
+
+
+interesting things we did with CRM:
+- integration tests (creation/recreation of data)
+- automated build and deployment system
+- integrating with message queue, correlation ID passing
+- transacional consistency
+- rant corner: the fallacy of typing ALL THE THINGS
+- strong types generation, linq provider and testing abstractions
+- writing f# type provider for crm
+
+
+Non crm posts ideas:
+- why developers love conferences?
+- Buzzwords of 2015
+- Analyzing development trends

@@ -1,0 +1,37 @@
+Jon Skeet - Party with C# like it's 2016
+
+
+Look at pluralsight courses
+- Initialize properties by default
+- Properties can be properly readonly (only with getter - I kind of did this in DayWatch now ... )
+- Properties can written as:
+public type Property => expression;
+
+and a method like 
+method() => method expression body member;
+
+- nameof operator ->  
+ - returns string with the name of variable you pass to it
+ - has about 3 uses
+  - ArgumentException
+  - RaisePropertyChanged
+  - Attribute values - previously you would be able to get it from tree, but you were not able to do them it properties
+
+Using static -> lets you import single types or members rather than whole namespace (so you eg. don't have to view unnecessary extensions)
+Also with using static you can call static methods directly (without specifying the class - neat! )
+
+String Interpolation
+Sadly, does not work with our Team City
+SI can you eg. conditional expressions ( (boo) ? : ) , as long as you put brackets around
+
+FormattableString
+
+Null conditional operator ?.
+! ------------- >  To check - try to use it in DayWatch
+
+Exception Filters
+
+
+Some less usefull stuff
+
+

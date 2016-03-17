@@ -1,0 +1,30 @@
+Post plan:
+
+F# in Spoltight
+Main points:
+- Practical ways of intrudicing F#
+  - Build scripts (FAKE)
+  - Data migration
+  - Api exploration
+- Why use F# at all
+  - scripting
+  - terse and unobtrusive
+  - DB access through type providers
+  - natural processing syntax
+- F# from the point of view of c# devops
+
+Dealing with CRM
+Main Points:
+- Crm is more a business than a technical decision
+- Crm gives an illusion you can solve the problems without code
+  - illusion because solving problem takes complexity, whether you do it in code or not
+  - with code there exists a lot of tools 
+
+F# in Spotlight
+
+
+Spotlight fell victim of one of my hupes, which is pushing f# wherever feasible. Which I hope will not be bad thing.
+
+For a bit of introduction, F# is .Net language, coming from Microsoft Research, which first class functional features. 
+
+### How to introduce language to a company
